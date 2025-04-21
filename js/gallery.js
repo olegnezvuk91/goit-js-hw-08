@@ -86,7 +86,7 @@ function createGalleryMarkup(images) {
 
 function ImageHandler(evt) {
   evt.preventDefault();
-  if (evt.currentTarget === evt.target) {
+  if (!evt.target.classList.contains("gallery-image")) {
     return;
   }
 
@@ -97,14 +97,17 @@ function ImageHandler(evt) {
     <div class="modal">
     <img class="modal-img" src=${currentDataset} alt="">
     </div>
-    `,
-    {
-      onShow: (instance) => {
-        const modalImg = instance.element().querySelector(".modal-img");
-        modalImg.addEventListener("click", instance.close);
-      },
-    }
+    `
   );
+
+  const onEscClose = (e) => {
+    if (e.key === "Escape") {
+      instance.close();
+      document.removeEventListener("keydown", onEscClose);
+    }
+  };
+
+  document.addEventListener("keydown", onEscClose);
 
   instance.show();
 }
