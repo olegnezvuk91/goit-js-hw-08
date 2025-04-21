@@ -94,7 +94,7 @@ function ImageHandler(evt) {
   const currentDataset = img.dataset.source;
   const instance = basicLightbox.create(
     `
-    <div>
+    <div class="modal">
     <img class="modal-img" src=${currentDataset} alt="">
     </div>
     `,
